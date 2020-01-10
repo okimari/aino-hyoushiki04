@@ -10,11 +10,6 @@ import Home from './Home';
 import SwiperBox from './Swiper';
 
 
-
-
-const StartBtn
-
-
 class App extends Component {
   state = {
     loading: true,
