@@ -3,6 +3,7 @@ import Swiper from 'react-id-swiper';
 //import { Autoplay } from "swiper/dist/js/swiper.esm";
 import img from './img.png';
 import 'swiper/css/swiper.css';
+import './Swiper.css';
 
 
 
@@ -26,11 +27,11 @@ const params = {
 
 const SwiperBox = () => (
     <Swiper{...params}>
-        <div style={{ background: "white", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
-        <div style={{ background: "white", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
-        <div style={{ background: "white", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
-        <div style={{ background: "white", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
-        <div style={{ background: "white", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
+        <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
+        <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
+        <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
+        <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
+        <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
     </Swiper >
 )
 

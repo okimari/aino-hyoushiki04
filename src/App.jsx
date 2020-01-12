@@ -8,6 +8,65 @@ import Login from './Login';
 // import Question from './Question';
 import Home from './Home';
 import SwiperBox from './Swiper';
+import { Transition } from 'react-transition-group';
+//import React, { useState } from "react";
+import './App.css';
+import LoginOauth from './LoginStart'
+
+
+
+// const Appless = () => {
+//   const [visible, change] = React.useState(false);
+
+//   return (
+//     <div>
+//       <div
+//         style={{
+//           padding: 10,
+//         }}
+//       >
+//         <button onClick={() => change(!visible)}>switch</button>
+//         <Transition
+//           in={visible}
+
+//           addEndListener={(node, done) => {
+//             const onTransitioinend = () => {
+//               node.removeEventListener('transitionend', onTransitioinend);
+//               console.log('done');
+//             };
+//             console.log(node, done);
+//             node.addEventListener('transitionend', onTransitioinend, false);
+//           }}
+//         >
+//           {status => {
+//             console.log(status);
+//             return (
+//               <div className={['hi', `hi-${status}`].join('')}>
+//               </Ldiv>
+//             );
+//           }}
+//         </Transition>
+//       </div>
+//     </div>
+//   );
+// };
+
+
+// const LogoFadeout = () => {
+//   return (
+//     <Transition in={"entered"} timeout={500}>
+//       {(state) => (
+//         <div className={test}>
+//           <img src={logo} test="App-logo" alt="logo" style={{ width: '50 %' }} />
+//         </div>
+//       )}
+
+//       <div className="FadeInContents">
+//         <SwiperBox />
+//       </div>
+//     </Transition>
+//   )
+// }
 
 
 class App extends Component {
@@ -31,12 +90,11 @@ class App extends Component {
   render() {
     if (this.state.loading) return <div>loading</div>;
     return (
-      <div>
-        <div>
-          <img src={logo} className="App-logo" alt="logo" />
-        </div>
-        <SwiperBox />
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+      <div className="App">
+        {/* <div>
+          <img src={logo} className="App-logo" alt="logo" style={{ width: '50 %' }} />
+        </div> */}
+        {/* <LogoFadeout /> */}
         Username: {this.state.user && this.state.user.displayName}
         <br />
         {this.state.user ?
@@ -56,7 +114,6 @@ class App extends Component {
 
               {/* Ruteからコンポーネントに情報を受け渡す方法は以下の書き方 */}
               {/* <Router path='/About' render={ () => <About name={'Tom'} />}/> */}
-
             </div>
           </BrowserRouter>
         </div>

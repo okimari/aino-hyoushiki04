@@ -1,3 +1,17 @@
+@font-face {
+    font-family: '851Gkktt_005';
+    src: url('./font/851Gkktt_005.ttf'), /* IE9 Compat Modes */
+    url('./font/851Gkktt_005.ttf') format('embedded-opentype'), /*IE6-IE8*/
+    url('./font/851Gkktt_005.woff') format('woff'), /*Pretty Modern Browsers*/
+    url('./font/851Gkktt_005.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('./font/851Gkktt_005.ttf') format('svg');
+    /* Legacy iOS */
+}
+
+* {
+    font-family: '851Gkktt_005';
+}
+
 .App {
     width: 100%;
     text-align: center;
@@ -9,13 +23,17 @@
     margin: 0 auto;
 }
 
+.App-logo img {
+    width: 350px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .App-logo {
         /* animation: App-logo-spin infinite 20s linear; */
         width: 100%;
     }
     .App-logo img {
-        width: 100%;
+        width: 60%;
     }
 }
 
@@ -41,4 +59,26 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.hi {
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.hi-entering {
+    opacity: 1;
+}
+
+.hi-entered {
+    opacity: 1;
+}
+
+.FadeInContents {
+    transition-timing-function: cubic-bezier(1, 0, 0, 1)
 }
