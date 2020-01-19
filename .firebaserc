@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "aino-hyoushiki"
+    "default": "aino-hyoushiki",
+    "y": "aino-hyoushiki"
   }
 }

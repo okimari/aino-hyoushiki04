@@ -1,0 +1,28 @@
+[debug] [2020-01-19T22:57:17.314Z] ----------------------------------------------------------------------
+[debug] [2020-01-19T22:57:17.315Z] Command:       /usr/local/bin/node /Users/mari_oki/.npm_global/bin/firebase list
+[debug] [2020-01-19T22:57:17.315Z] CLI Version:   7.12.1
+[debug] [2020-01-19T22:57:17.315Z] Platform:      darwin
+[debug] [2020-01-19T22:57:17.315Z] Node Version:  v12.13.0
+[debug] [2020-01-19T22:57:17.316Z] Time:          Mon Jan 20 2020 07:57:17 GMT+0900 (GMT+09:00)
+[debug] [2020-01-19T22:57:17.316Z] ----------------------------------------------------------------------
+[debug] [2020-01-19T22:57:17.316Z] 
+[debug] [2020-01-19T22:57:17.321Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-19T22:57:17.321Z] > authorizing via signed-in user
+[warn] This command is deprecated. Instead, use 'firebase projects:list' command to list your projects.
+[debug] [2020-01-19T22:57:17.323Z] [WARNING] Error: getProjects() is deprecated - update the implementation
+    at Object.getProjects (/Users/mari_oki/.npm_global/lib/node_modules/firebase-tools/lib/api.js:186:35)
+    at Command.actionFn (/Users/mari_oki/.npm_global/lib/node_modules/firebase-tools/lib/commands/list.js:14:16)
+    at Command.<anonymous> (/Users/mari_oki/.npm_global/lib/node_modules/firebase-tools/lib/command.js:157:25)
+    at Generator.next (<anonymous>)
+    at fulfilled (/Users/mari_oki/.npm_global/lib/node_modules/firebase-tools/lib/command.js:4:58)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+[debug] [2020-01-19T22:57:17.324Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects  
+ 
+[debug] [2020-01-19T22:57:18.849Z] Error: certificate has expired
+    at TLSSocket.onConnectSecure (_tls_wrap.js:1321:34)
+    at TLSSocket.emit (events.js:210:5)
+    at TLSSocket.EventEmitter.emit (domain.js:476:20)
+    at TLSSocket._finishInit (_tls_wrap.js:794:8)
+    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:608:12)
+[error] 
+[error] Error: Server Error. certificate has expired

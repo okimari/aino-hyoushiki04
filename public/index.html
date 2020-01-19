@@ -41,6 +41,12 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script src="https://unpkg.com/react-id-swiper@2.4.0/lib/react-id-swiper.js"></script>
+    <!-- Load the polyfill first. -->
+    <!-- 追加分 -->
+    <script src="path/to/intersection-observer.js"></script>
+    <!-- 追加分 -->
+    <!-- Load all other JavaScript. -->
+    <script src="app.js"></script>
 </body>
 
 </html>

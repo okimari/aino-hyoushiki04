@@ -10,7 +10,7 @@
 
 # production
 /build
-plugin/
+/config/firebase.js
 
 # misc
 .DS_Store
