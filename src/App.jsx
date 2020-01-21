@@ -1,20 +1,18 @@
-// import Question from './Question';
-
 import React, { useState, Component } from 'react';
 import logo from './images/logo.png';
 import img from './images/img.png';
 import SwipeableViews from 'react-swipeable-views';
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import firebase from './config/firebase';
 import { render } from '@testing-library/react';
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 //import firebase from './config/firebase';
 import './App.css';
-
+import Question from './component/Question';
 import { BrowserRouter, Route } from 'react-router-dom';
-
+import Start from './component/Start';
 
 // SwiperのStyle
 const styles = {
@@ -25,15 +23,15 @@ const styles = {
   },
   slide1: {
     backgraundColor: '#FEA900',
-    height: '100vh'
+    // height: '100vh'
   },
   slide2: {
     backgraundColor: '#B3DC4A',
-    height: '100vh'
+    // height: '100vh'
   },
   slide3: {
     backgraundColor: '#6AC0FF',
-    height: '100vh'
+    // height: '100vh'
   },
 };
 
@@ -67,15 +65,15 @@ const SwiperBox = () => {
 }
 
 // Authの設定
-firebase.initializeApp({
-  apiKey: "AIzaSyCsNOCJkAK7d2VVwRCSnyFZrpyfN5W5q4Q",
-  authDomain: "aino-hyoushiki.firebaseapp.com",
-  databaseURL: "https://aino-hyoushiki.firebaseio.com",
-  projectId: "aino-hyoushiki",
-  storageBucket: "aino-hyoushiki.appspot.com",
-  messagingSenderId: "1047087563521",
-  appId: "1:1047087563521:web:272817f02ea6e934541100"
-})
+// firebase.initializeApp({
+//   apiKey: "AIzaSyCsNOCJkAK7d2VVwRCSnyFZrpyfN5W5q4Q",
+//   authDomain: "aino-hyoushiki.firebaseapp.com",
+//   databaseURL: "https://aino-hyoushiki.firebaseio.com",
+//   projectId: "aino-hyoushiki",
+//   storageBucket: "aino-hyoushiki.appspot.com",
+//   messagingSenderId: "1047087563521",
+//   appId: "1:1047087563521:web:272817f02ea6e934541100"
+// })
 
 class Auth extends Component {
   state = {
@@ -166,19 +164,29 @@ function App() {
           <div>
             <firstMessage />
             <p className="hidden" style={{ fontSize: '34px', letterSpacing: '1.5px', fontWeight: "bold", lineHeight: '1.3' }}>別れたい人への<br />
-              見積もりを<br />
+              お見積もりを<br />
               作成しよう！
             </p>
-            <p style={{ fontSize: '22px', letterSpacing: '1.5px' }}>質問に答えてね・ω・</p>
+            {/* <p style={{ fontSize: '22px', letterSpacing: '1.5px' }}>質問に答えてね・ω・</p> */}
           </div>
           <Auth />
+          <div className="moveBtn">
+            <BrowserRouter>
+              {/* ここにルーターの部分を入れる */}
+              <div className="StartBtn">
+                <p><Start /></p>
+              </div>
+              <div>
+                <Route path='/Question' component={Question} />
+              </div>
+            </BrowserRouter>
+
+            {/* <Button className="firstBtn" onClick={() => { setIndex(++index) }}>
+              はじめる
+            </Button> */}
+          </div>
         </div>
       </SwipeableViews>
-      <div className="moveBtn">
-        <Button className="firstBtn" onClick={() => { setIndex(++index) }}>
-          はじめる
-        </Button>
-      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import firebase from './plugin/firebase'
+import firebase from '../config/firebase';
 import TextField from '@material-ui/core/TextField';
 import ReactDOM from 'react-dom';
 // import { Link } from '@material-ui/core';
