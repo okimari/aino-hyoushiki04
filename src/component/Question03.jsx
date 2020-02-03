@@ -12,12 +12,44 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Question03() {
-    const classes = useStyles();
+function Question03(props) {
+    console.log(props);
+    // setStateの値をここで設定する
+    // 連想配列でテキストを取得する
+    const [data3, setdata3] = React.useState({ rent: '', money: '' });
     return (
-        <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="お供えしたもの" variant="outlined" />
-            <TextField id="outlined-basic" label="きんがく" variant="outlined" />
+        <form>
+            <TextField
+                id="outlined-basi4"
+                label="きんがく"
+                variant="outlined"
+                type="number"
+                onChange={(e) => props.save({
+                    // 送り出す値をここで設定する
+                    money: e.target.value
+                })}
+                // キーボードが動いたらmoneysの値をチェンジする
+                KeyboardButtonProps={{
+                    'aria-label': 'change money',
+                }}
+                style={{ background: '#fff', borderRadius: '5px', border: 'solid,#1655B6,1px', marginBottom: '20px', width: '100%' }}
+            />
+            <TextField
+                id="outlined-basic3"
+                label="期間を入力してね"
+                variant="outlined"
+                onChange={(e) => props.save({
+                    // 送り出す値をここで設定する
+                    rent: e.target.value
+                })}
+                // キーボードが動いたらrentの値をチェンジする
+                KeyboardButtonProps={{
+                    'aria-label': 'change rent',
+                }}
+                style={{ background: '#fff', borderRadius: '5px', border: 'solid,#1655B6,1px', marginBottom: '20px', width: '100%' }}
+            />
         </form>
     );
 }
+
+export default Question03;

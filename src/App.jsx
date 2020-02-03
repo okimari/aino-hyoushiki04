@@ -13,6 +13,8 @@ import './App.css';
 import Question from './component/Question';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Start from './component/Start';
+import Calculation from './component/Calculation';
+import Estimate from './component/Estimate';
 
 // SwiperのStyle
 const styles = {
@@ -30,6 +32,14 @@ const styles = {
     // height: '100vh'
   },
   slide3: {
+    backgraundColor: '#6AC0FF',
+    // height: '100vh'
+  },
+  slide4: {
+    backgraundColor: '#6AC0FF',
+    // height: '100vh'
+  },
+  slide5: {
     backgraundColor: '#6AC0FF',
     // height: '100vh'
   },
@@ -79,7 +89,8 @@ class Auth extends Component {
   state = {
     //isSingnedIn: false
     loading: true,
-    user: null
+    user: null,
+
   }
   uiConfig = {
     signInFlow: 'popup',
@@ -97,27 +108,46 @@ class Auth extends Component {
       signInSuccess: () => false
     }
   }
+
+
+
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ isSignedIn: !!user })
+      // var uid = user.uid;
       console.log("user", user)
+      //console.log("user", uid)
+      //console.log("username", name);
+      // firebase.firestore().collection('AuthDb').doc(`${user.uid}`)
+      //   .set({
+      //     uid: user.uid,
+      //     name: 'string'
+      //   })
     })
   }
+
   // 追加
   render() {
     //if (this.state.loading) return <div>loading</div>;
     return (
-      <div className="Login">
+      <div className="Login" style={{ paddingTop: '120px' }}>
+        <h1>ログイン</h1>
+        <p>下の４つのどれかでログインしてね</p>
         {this.state.isSignedIn ? (
           <span>
             <div>Signed In!</div>
             <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
-            <h1>Welcome {firebase.auth().currentUser.displayName}</h1>
+            <h1>Welcome {firebase.auth().currentUser.displayName}</h1><br />
             {/* Username: {this.state.user && this.state.user.displayName}<br /> */}
             <div className="Profile_img">
               <img
-                alt="profile picture"
+                alt="proaqqawqfile picture"
                 src={firebase.auth().currentUser.photoURL}
+                style={{
+                  width: '130px',
+                  height: '130px',
+                  borderRadius: '50%'
+                }}
               />
             </div>
           </span>
@@ -151,42 +181,76 @@ function App() {
   //const isSignedIn = this.state.isSignedIn;
   return (
     <div className="App">
+
       <SwipeableViews enableMouseEvents onChangeIndex={index => { setIndex(index) }} index={index}>
+
         <div style={Object.assign({}, styles.slide, styles.slide1)}>
           <div className="Homeimg">
-            <img src={logo} className="App-logo" alt="logo" style={{ width: '40%' }} />
+            {/* <img src={logo} className="App-logo" alt="logo" style={{ width: '40%' }} /> */}
+            <h1 style={{ fontSize: '100px', fontWeight: '300', position: 'absolute', top: '50%', left: '50%', transform: 'translateY(-50%) translateX(-50%)' }}>愛の標識</h1>
           </div>
         </div>
-        <div id="slideSecond" style={Object.assign({}, styles.slide, styles.slide1)}>
+
+        <div className="slide_view" id="slideSecond" style={Object.assign({}, styles.slide, styles.slide2)}>
+          <p>アプリの使用方法だっちゃ</p>
           <SwiperBox />
         </div>
-        <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide1)}>
+
+        <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide3)}>
           <div>
             <firstMessage />
-            <p className="hidden" style={{ fontSize: '34px', letterSpacing: '1.5px', fontWeight: "bold", lineHeight: '1.3' }}>別れたい人への<br />
-              お見積もりを<br />
-              作成しよう！
-            </p>
-            {/* <p style={{ fontSize: '22px', letterSpacing: '1.5px' }}>質問に答えてね・ω・</p> */}
           </div>
           <Auth />
+        </div>
+
+        <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide4)}>
+          <div>
+            <firstMessage />
+          </div>
           <div className="moveBtn">
-            <BrowserRouter>
-              {/* ここにルーターの部分を入れる */}
-              <div className="StartBtn">
-                <p><Start /></p>
+            <Question />
+            {/* <BrowserRouter> */}
+            {/* ここにルーターの部分を入れる */}
+            {/* <div className="StartBtn">
+
               </div>
               <div>
                 <Route path='/Question' component={Question} />
               </div>
-            </BrowserRouter>
-
-            {/* <Button className="firstBtn" onClick={() => { setIndex(++index) }}>
-              はじめる
-            </Button> */}
+            </BrowserRouter> */}
           </div>
         </div>
+
+        <div id="fourth" style={Object.assign({}, styles.slide, styles.slide5)}>
+          <p>お見積りを作成する</p>
+          <BrowserRouter>
+            {/* ここにルーターの部分を入れる */}
+            <div className="StartBtn">
+              <p><Calculation /></p>
+            </div>
+            <div>
+              <Route path='/Estimate' component={Estimate} />
+            </div>
+            <p><Estimate /></p>
+          </BrowserRouter>
+        </div>
+
+        {/* <div id="fifth" style={Object.assign({}, styles.slide, styles.slide5)}>
+          <p>最終お見積りだす</p>
+          <BrowserRouter> */}
+        {/* ここにルーターの部分を入れる */}
+        {/* <div className="StartBtn">
+              <p><Start /></p>
+            </div>
+            <div>
+              <Route path='/Estimate' component={Estimate} />
+            </div>
+          </BrowserRouter>
+        </div> */}
+
+
       </SwipeableViews>
+
     </div>
   );
 }

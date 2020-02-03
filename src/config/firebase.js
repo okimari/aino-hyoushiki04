@@ -1,6 +1,5 @@
 //firebaseと連携させているページ
 import firebase from 'firebase';
-// import 'firebase/auth';
 import 'firebase/firestore';
 
 //firebaseのKey
@@ -14,6 +13,9 @@ const config = {
     appId: "1:1047087563521:web:272817f02ea6e934541100"
 }
 firebase.initializeApp(config);
+const AuthDb = firebase.firestore().collection('UserId');
+const db = firebase.firestore().collection('anniversaryData');;
+const settings = { timestampsInSnapshots: true };
 //firebaseconst firebaseApp = firebase.initializeApp(config);
 // const Datadb = firebase.firestore().collection('anniversaryData');
 export default firebase

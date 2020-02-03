@@ -1,26 +1,45 @@
 // import React from 'react';
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import './Question.css';
 import "react-datepicker/dist/react-datepicker.css";
-import Question01 from './Question01';
 import Button from '@material-ui/core/Button';
 import firebase from '../config/firebase';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Question01 from './Question01';
+import Question02 from './Question02';
+import Question03 from './Question03';
+import Question04 from './Question04';
 
+var user = firebase.auth().currentUser;
+if (user != null) {
+    user.providerData.forEach(function (uid) {
+        // console.log("Sign-in provider: " + profile.providerId);
+        // console.log("  Provider-specific UID: " + profile.uid);
+        // console.log("  Name: " + profile.displayName);
+        // console.log("  Email: " + profile.email);
+        // console.log("  Photo URL: " + profile.photoURL);
+    });
+}
 
-
-firebase.firestore().collection('anniversaryData').add({
-    userId: null,
-    userName: "string",
-    Data: "timestamp",
-    categorys: {
-        technology: null,
-        opinion: null,
-        cats: null,
-    }
+// componentDidMount = () => {
+firebase.auth().onAuthStateChanged(user => {
+    this.setState({ isSignedIn: !!user })
+    var uid = user.uid;
+    console.log("user", user)
+    console.log("user", uid)
+    // firebase.firestore().collection('anniversaryData').add({
+    //     userName: user.uid,
+    //     Data: "date-picker-dialog",
+    //     categorys: {
+    //         technology: null,
+    //         opinion: null,
+    //         cats: null,
+    //     }
+    // })
+    //console.log("username", name);
 })
-
+// }
 
 const styles = {
     slide: {
@@ -39,72 +58,100 @@ const styles = {
     },
 };
 
-
-// useEffect(() => {
-//     firebase
-//         .firestore()
-//         .collection('anniversaryData')
-
-// }, [
-
-// ])
-
-
-export default function Question() {
+function Question() {
     //変数と関数の違い
     //indexは値を保存する変数
     //setIndexは値を変更するための関数
     let [index, setIndex] = useState(0);
+    //let [currentUser, setCurrentUser] = useState(null);
     let [data, setData] = useState([
-        "a",
-        "b",
-        "c",
-        "d"
+        { data: firebase.firestore.Timestamp },
+        { presents: '', moneys: 0 },
+        { rent: '', money: 0 },
+        { user: '', love: 0 }
     ])
 
+    const handleChangeDate = date => {
+        data[0] = date
+        setData([...data]);
+    };
+    // 配列で取得するためにdataの中の[1]番目を指定する
+    // data[1]の中のpresentsの部分を変更する
+    // ...dataでuseStateに入っている値を全部取得する
+    const handleChangePresents = presents => {
+        console.log(data[1])
+        data[1] = { ...data[1], ...presents }
+        setData([...data]);
+    };
 
+    const handleChangeRent = rent => {
+        console.log(data[2])
+        data[2] = { ...data[2], ...rent }
+        setData([...data]);
+    };
 
-    const sendToFirebase = (answer, number) => {
-        //number = 2
-        //answer = hello
+    const handleDateLove = love => {
+        //uid = user.uid;
+        console.log(data[3])
+        data[3] = { ...data[3], ...love }
+        setData([...data]);
+    };
 
-        data[number - 1] = answer
+    const handleDateFirebase = data => {
+        firebase.firestore().collection('anniversaryData').add({
+            //uid = user.uid,
+            date: data[0],
+            present: data[1],
+            moneys: data[2],
+            rent: data[3],
+            today: new Date(),
+            //user: uid,
+        }).then(() => {
+            setData({
+                anniversary: firebase.firestore.Timestamp,
+                present: { presents: '', moneys: 0 },
+                life: { rent: '', money: 0 },
+                love: 0,
+                today: 0,
+            });
+        })
+    };
 
-        setData(data)
-    }
-
+    console.log(data);
     return (<>
         <div>
+            {/* <p>{JSON.stringify(data)}</p> */}
             <SwipeableViews enableMouseEvents onChangeIndex={index => { setIndex(index) }} index={index}>
                 <div style={Object.assign({}, styles.slide, styles.slide1)}>
-                    {/* <BrowserRouter>
-                        <Route path='/Question' component={Question} />
-                    </BrowserRouter> */}
-                    <p>ここはQuestions01</p>
-                    <Question01 sendToFirebase={sendToFirebase} />
+                    <p>Questions01</p>
+                    <Question01 save={(e) => handleChangeDate(e)} />
                 </div>
-                <div id="slideSecond" style={Object.assign({}, styles.slide, styles.slide1)}>
-                    <p>ここはQuestions02</p>
-                    <Question01 sendToFirebase={sendToFirebase} />
-                    {/* <Button variant="contained" color="primary" href="#slideThird" onChangeIndex={index => { setIndex(index) }} index={index}>
-                    Link
-                </Button> */}
+                <div id="slideSecond" style={Object.assign({}, styles.slide, styles.slide2)}>
+                    <p>Questions02</p>
+                    <p>プレゼントしたものを入力</p>
+                    <Question02 save={(e) => handleChangePresents(e)} />
                 </div>
-                <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide1)}>
-                    <p>ここはQuestions03</p>
-                    <Question01 sendToFirebase={sendToFirebase} />
+                <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide3)}>
+                    <p>Questions03</p>
+                    <p>家の支払いの金額を入力</p>
+                    <Question03 save={(e) => handleChangeRent(e)} />
+                </div>
+                <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide4)}>
+                    <p>Questions04</p>
+                    <p>愛してた度を入れてね</p>
+                    <Question04
+                        data={data}
+                        save={(e, v) => handleDateLove(v)}
+                        send={(e) => handleDateFirebase(e)}
+                    />
                 </div>
             </SwipeableViews>
         </div>
-
-        <button onClick={() => { alert(data) }}>debug</button>
-
         <Button variant="contained" color="secondary" onClick={() => { setIndex(++index) }}>
-            Link
-            </Button>
+            次の質問を答える
+        </Button>
     </>)
-
 }
 
 
-//export default Question;
+export default Question;

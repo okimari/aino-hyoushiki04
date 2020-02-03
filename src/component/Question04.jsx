@@ -2,23 +2,18 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: 300 + theme.spacing(3) * 2,
-    },
-    margin: {
-        height: theme.spacing(3),
-    },
-}));
+import Button from '@material-ui/core/Button';
 
 function ValueLabelComponent(props) {
     const { children, open, value } = props;
 
     return (
-        <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
+        <Tooltip
+            open={open}
+            enterTouchDelay={0}
+            placement="top"
+            title={value}>
             {children}
         </Tooltip>
     );
@@ -115,80 +110,79 @@ const PrettoSlider = withStyles({
     },
 })(Slider);
 
-const AirbnbSlider = withStyles({
-    root: {
-        color: '#3a8589',
-        height: 3,
-        padding: '13px 0',
-    },
-    thumb: {
-        height: 27,
-        width: 27,
-        backgroundColor: '#fff',
-        border: '1px solid currentColor',
-        marginTop: -12,
-        marginLeft: -13,
-        boxShadow: '#ebebeb 0px 2px 2px',
-        '&:focus,&:hover,&$active': {
-            boxShadow: '#ccc 0px 2px 3px 1px',
-        },
-        '& .bar': {
-            // display: inline-block !important;
-            height: 9,
-            width: 1,
-            backgroundColor: 'currentColor',
-            marginLeft: 1,
-            marginRight: 1,
-        },
-    },
-    active: {},
-    valueLabel: {
-        left: 'calc(-50% + 4px)',
-    },
-    track: {
-        height: 3,
-    },
-    rail: {
-        color: '#d8d8d8',
-        opacity: 1,
-        height: 3,
-    },
-})(Slider);
+function Question04(props) {
+    console.log(props)
+    // const [loveDate, setLoveDate] = React.useState(new Date(50));
+    const [firebaseData, setFirebaseData] = React.useState()
 
-function AirbnbThumbComponent(props) {
-    return (
-        <span {...props}>
-            <span className="bar" />
-            <span className="bar" />
-            <span className="bar" />
-        </span>
-    );
-}
-
-export default function CustomizedSlider() {
-    const classes = useStyles();
+    const handleDateFirebase = allData => {
+        setFirebaseData(allData)
+    };
 
     return (
-        <div className={classes.root}>
-            {/* <Typography gutterBottom>iOS</Typography>
-            <IOSSlider aria-label="ios slider" defaultValue={60} marks={marks} valueLabelDisplay="on" /> */}
-            <Typography gutterBottom>愛してた度合</Typography>
-            <PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
-            <div className={classes.margin} />
-            {/* <Typography gutterBottom>Tooltip value label</Typography>
+        <div>
+            {/* <input type="range"
+                onChange={e => props.save({
+                    // 送り出す値をここで設定する
+                    love: e.target.value
+                })} /> */}
+
+            {/* <Button variant="contained" color="secondary" onClick={data()}>
+                Link
+            </Button> */}
+            {/* <Button variant="contained" color="secondary" onClick={(e) => props.send(props.data)}>
+                登録
+            </Button> */}
+
+
+            {/* 本当はこのSliderを使用したい */}
             <Slider
                 ValueLabelComponent={ValueLabelComponent}
                 aria-label="custom thumb label"
                 defaultValue={20}
-            />
-            <div className={classes.margin} />
-            <Typography gutterBottom>Airbnb</Typography>
-            <AirbnbSlider
-                ThumbComponent={AirbnbThumbComponent}
-                getAriaLabel={index => (index === 0 ? 'Minimum price' : 'Maximum price')}
-                defaultValue={[20, 40]} 
-            />*/}
+                onChange={(e, v) =>
+                    console.log(v)
+                    //props.save({
+                    //     // 送り出す値をここで設定する
+                    //     love: v
+                    // })
+                } />
+
+
+            <Button variant="contained" color="secondary" onClick={(e) => props.send(props.data)}>
+                情報を登録
+            </Button>
+
+
+            {/* <PrettoSlider
+                valueLabelDisplay="auto"
+                aria-label="pretto slider"
+                min={0}
+                max={100}
+                defaultValue={loveDate}
+                onChange={e => props.save({ */}
+            {/* // 送り出す値をここで設定する
+                //     love: e.target.value
+                // })}
+                // onChangeCommitted={(e) => */}
+            {/* //     props.save(loveDate)}
+                // KeyboardButtonProps={{ */}
+            {/* //     'aria-label': 'change max',
+                // }}
+
+            // onChangeCommitted={(event, value) => this.onChangeCommitted(event, value)}
+            // // onDragEnd={() => props.save({ LoveDate: true })}
+
+            // value={this.state.sliderValue}
+            // min={0}
+            // max={100}
+            // step={1}
+            // onChange={(event, value) => this.onChange(event, value)}
+            // onDragEnd={() => this.setState({ fetchDataEnabled: true })}
+            /> */}
+
         </div>
     );
 }
 
+export default Question04;
