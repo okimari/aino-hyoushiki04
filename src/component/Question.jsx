@@ -11,36 +11,6 @@ import Question02 from './Question02';
 import Question03 from './Question03';
 import Question04 from './Question04';
 
-var user = firebase.auth().currentUser;
-if (user != null) {
-    user.providerData.forEach(function (uid) {
-        // console.log("Sign-in provider: " + profile.providerId);
-        // console.log("  Provider-specific UID: " + profile.uid);
-        // console.log("  Name: " + profile.displayName);
-        // console.log("  Email: " + profile.email);
-        // console.log("  Photo URL: " + profile.photoURL);
-    });
-}
-
-// componentDidMount = () => {
-firebase.auth().onAuthStateChanged(user => {
-    this.setState({ isSignedIn: !!user })
-    var uid = user.uid;
-    console.log("user", user)
-    console.log("user", uid)
-    // firebase.firestore().collection('anniversaryData').add({
-    //     userName: user.uid,
-    //     Data: "date-picker-dialog",
-    //     categorys: {
-    //         technology: null,
-    //         opinion: null,
-    //         cats: null,
-    //     }
-    // })
-    //console.log("username", name);
-})
-// }
-
 const styles = {
     slide: {
         padding: 15,
@@ -58,11 +28,20 @@ const styles = {
     },
 };
 
-function Question() {
+function Question(props) {
     //変数と関数の違い
     //indexは値を保存する変数
     //setIndexは値を変更するための関数
+    // let [user, setUser] = useState(null);
     let [index, setIndex] = useState(0);
+
+    // firebase.auth().onAuthStateChanged(user => {
+    //     var uid = user.uid;
+    //     setUser(user);
+    //     console.log("user", user)
+    //     console.log("user", uid)
+    // })
+
     //let [currentUser, setCurrentUser] = useState(null);
     let [data, setData] = useState([
         { data: firebase.firestore.Timestamp },
@@ -98,13 +77,17 @@ function Question() {
     };
 
     const handleDateFirebase = data => {
+        console.log(props.user.uid)
         firebase.firestore().collection('anniversaryData').add({
-            //uid = user.uid,
+            uid: props.user.uid,
+            // uid: 'aaaaa',
             date: data[0],
             present: data[1],
             moneys: data[2],
             rent: data[3],
             today: new Date(),
+            //today:firebase.firestore.FieldValue.serverTimestamp()
+            //today: Timestamp.toDate(),
             //user: uid,
         }).then(() => {
             setData({

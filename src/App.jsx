@@ -113,6 +113,7 @@ class Auth extends Component {
 
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user: user })
       this.setState({ isSignedIn: !!user })
       // var uid = user.uid;
       console.log("user", user)
@@ -177,6 +178,12 @@ const firstMessage = () => {
 function App() {
   //page遷移の定義をする
   let [index, setIndex] = useState(0);
+  let [user, setUser] = useState();
+  firebase.auth().onAuthStateChanged(user => {
+    let uid = user;
+    setUser(user);
+  })
+
   render()
   //const isSignedIn = this.state.isSignedIn;
   return (
@@ -196,6 +203,7 @@ function App() {
           <SwiperBox />
         </div>
 
+        {/* ログイン画面 */}
         <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide3)}>
           <div>
             <firstMessage />
@@ -203,12 +211,13 @@ function App() {
           <Auth />
         </div>
 
+        {/* 質問画面 */}
         <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide4)}>
           <div>
             <firstMessage />
           </div>
           <div className="moveBtn">
-            <Question />
+            <Question user={user} />
             {/* <BrowserRouter> */}
             {/* ここにルーターの部分を入れる */}
             {/* <div className="StartBtn">
@@ -221,6 +230,7 @@ function App() {
           </div>
         </div>
 
+        {/* 一覧画面 */}
         <div id="fourth" style={Object.assign({}, styles.slide, styles.slide5)}>
           <p>お見積りを作成する</p>
           <BrowserRouter>
@@ -231,7 +241,7 @@ function App() {
             <div>
               <Route path='/Estimate' component={Estimate} />
             </div>
-            <p><Estimate /></p>
+            <p><Estimate user={user} /></p>
           </BrowserRouter>
         </div>
 

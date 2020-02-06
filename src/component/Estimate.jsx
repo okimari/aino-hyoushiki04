@@ -10,6 +10,7 @@ function Estimate(props) {
 
     const [fireBase, setFireBase] = useState([]);
 
+
     const handleClickBtn = async () => {
         //document取得
         const db = firebase.firestore();
@@ -19,7 +20,8 @@ function Estimate(props) {
         //Collection取得
         const snapshot = await db
             .collection('anniversaryData')
-            //.where("user", "==", true)
+            .where("uid", "==", props.user.uid)
+            .orderBy('today', 'desc')
             .limit(1)
             .get();
         const _users = [];
@@ -29,12 +31,13 @@ function Estimate(props) {
                 ...doc.data(),
                 total: Number((doc.data().moneys.money)) + (Number(doc.data().present.moneys)),
                 toData: (Math.round(((((doc.data().today.seconds) - (doc.data().date.seconds)) / 60) / 60) / 24)),
-
+                today: Math.round(doc.data().today.seconds)
             });
             // console.log(Number(doc.data().moneys.money));
             // console.log(Number(doc.data().present.moneys));
             console.log((Number(doc.data().moneys.money) + (Number(doc.data().present.moneys))));
             console.log(Math.round(((((doc.data().today.seconds) - (doc.data().date.seconds)) / 60) / 60) / 24));
+            console.log(Math.round(doc.data().today.seconds));
             //console.log((doc.data().moneys));
             //console.log((Number(doc.data().moneys.money)) + (Number(doc.data().present.moneys)));
         });
