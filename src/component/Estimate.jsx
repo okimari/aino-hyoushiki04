@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import firebase from '../config/firebase';
-//import * as firebase from 'firebase';
 import 'firebase/firestore'; // 追記
 import { toDate } from 'date-fns';
 
@@ -14,9 +13,6 @@ function Estimate(props) {
     const handleClickBtn = async () => {
         //document取得
         const db = firebase.firestore();
-        /*const db = firebase.firestore();
-        const doc = await db.collection('anniversaryData').doc('WhgwO7XbZrT4Z9KUU4Ul').get();
-        console.log(doc.data());*/
         //Collection取得
         const snapshot = await db
             .collection('anniversaryData')
@@ -30,40 +26,55 @@ function Estimate(props) {
                 documentId: doc.id,
                 ...doc.data(),
                 total: Number((doc.data().moneys.money)) + (Number(doc.data().present.moneys)),
-                toData: (Math.round(((((doc.data().today.seconds) - (doc.data().date.seconds)) / 60) / 60) / 24)),
+                toData: (Math.round(((((doc.data().today.seconds) - (doc.data().date.seconds)) / 60) / 60) / 24) / 7 * 0.2 * 24 * 1055),
                 today: Math.round(doc.data().today.seconds)
             });
-            // console.log(Number(doc.data().moneys.money));
-            // console.log(Number(doc.data().present.moneys));
             console.log((Number(doc.data().moneys.money) + (Number(doc.data().present.moneys))));
-            console.log(Math.round(((((doc.data().today.seconds) - (doc.data().date.seconds)) / 60) / 60) / 24));
+            console.log(Math.round(((((doc.data().today.seconds) - (doc.data().date.seconds)) / 60) / 60) / 24) / 7 * 0.2 * 24 * 1055);
             console.log(Math.round(doc.data().today.seconds));
-            //console.log((doc.data().moneys));
-            //console.log((Number(doc.data().moneys.money)) + (Number(doc.data().present.moneys)));
         });
         setFireBase(_users);
     };
 
     const QuestionsListItems = fireBase.map(user => {
         return (
-            <ul>
-                {/* < li key={user.documentId} >
-                    {JSON.stringify(user)} {JSON.stringify(user.present)}: {JSON.stringify(user.moneys)}: {JSON.stringify(user.rent)}: {JSON.stringify(user.money)}: {JSON.stringify(user.today)}
-                    {/* {JSON.stringify[(user.data), (user.present, { presents: '', moneys: 0 }), (user.rent), (user.today)]} */}
-                {/* {JSON.stringify(user.present, { presents: '', moneys: 0 })}
-                {JSON.stringify(user.rent)}
-                {JSON.stringify(user.today)} */}
-                {/* </li > */}
-                <li style={{ marginBottom: '10px', listStyle: 'none' }}><p>付き合い始めた日</p>{JSON.stringify(user.date)}</li>
-                <li style={{ marginBottom: '10px', listStyle: 'none' }}><p>差し上げたもの</p>{JSON.stringify(user.present.presents)}</li>
-                <li style={{ marginBottom: '10px', listStyle: 'none' }}><p>差し上げたもの</p>{JSON.stringify(user.present.moneys)}</li>
-                {/* <li style={{ marginBottom: '10px', listStyle: 'none' }}><p>差し上げた金額</p>{JSON.stringify(user.moneys.rent)}</li> */}
-                <li style={{ marginBottom: '10px', listStyle: 'none' }}><p>毎月の家賃額</p>{JSON.stringify(user.moneys.money)}</li>
-                <li style={{ marginBottom: '10px', listStyle: 'none' }}><p>今日の日付</p>{JSON.stringify(user.today)}</li>
+            <div>
                 <h2>見積もり金額</h2>
-                <li style={{ marginBottom: '10px', listStyle: 'none' }}><p>お金の合計金額</p>{JSON.stringify(user.total)}</li>
-                <li style={{ marginBottom: '10px', listStyle: 'none' }}><p>付き合った日数</p>{JSON.stringify(user.toData)}day</li>
-            </ul>
+                <table className="estimate" style={{ width: '95%', border: 'solid 1px #fff', margin: '30px auto 0' }}>
+                    <h3>詳細項目</h3>
+                    <tr>
+                        <th style={{ width: '40%', border: 'solid 1px #fff' }}>項目</th>
+                        <th style={{ width: '40%', border: 'solid 1px #fff' }}>金額</th>
+                    </tr>
+                    <tr>
+                        <th style={{ width: '40%', border: 'solid 1px #fff', textAlign: 'left', fontSize: '13px', padding: '10px 3px 10px 5px' }}>付き合い始めた日</th>
+                        <td style={{ width: '70%', border: 'solid 1px #fff' }}>{JSON.stringify(user.date.seconds)}</td>
+                    </tr>
+                    <tr style={{ border: 'solid 1px #fff' }}>
+                        <th style={{ border: 'solid 1px #fff', textAlign: 'left', fontSize: '13px', padding: '10px 3px 10px 5px' }}>差し上げたもの</th>
+                        <td style={{ border: 'solid 1px #fff' }}>{JSON.stringify(user.present.presents)}</td>
+                    </tr>
+                    <tr style={{ border: 'solid 1px #fff' }}>
+                        <th style={{ border: 'solid 1px #fff', textAlign: 'left', fontSize: '13px', padding: '10px 3px 10px 5px' }}>毎月の家賃額</th>
+                        <td style={{ border: 'solid 1px #fff' }}>{JSON.stringify(user.moneys.money)}</td>
+                    </tr>
+                    <tr style={{ border: 'solid 1px #fff' }}>
+                        <th style={{ border: 'solid 1px #fff', textAlign: 'left', fontSize: '13px', padding: '10px 3px 10px 5px' }}>今日の日付</th>
+                        <td style={{ border: 'solid 1px #fff' }}>{JSON.stringify(user.today)}</td>
+                    </tr>
+                </table>
+                <table lassName="estimate" style={{ width: '95%', border: 'solid 1px #fff', margin: '30px auto 0' }}>
+                    <h3>合計金額等</h3>
+                    <tr style={{ border: 'solid 1px #fff' }}>
+                        <th style={{ border: 'solid 1px #fff', textAlign: 'left', fontSize: '13px', padding: '10px 3px 10px 5px' }}>してあげた合計金額</th>
+                        <td style={{ border: 'solid 1px #fff' }}>{JSON.stringify(user.total)}</td>
+                    </tr>
+                    <tr style={{ border: 'solid 1px #fff' }}>
+                        <th style={{ border: 'solid 1px #fff', textAlign: 'left', fontSize: '13px', padding: '10px 3px 10px 5px' }}>付き合った日数</th>
+                        <td style={{ border: 'solid 1px #fff' }}>{JSON.stringify(user.toData)}</td>
+                    </tr>
+                </table>
+            </div>
         );
     })
     //console.log(data)

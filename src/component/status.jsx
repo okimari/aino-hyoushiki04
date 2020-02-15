@@ -2,7 +2,9 @@ import react from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 
-const status = () => (
+
+
+const Status = () => (
     <BrowserRouter>
         <div>
             <ul>
@@ -18,4 +20,7 @@ const status = () => (
 )
 
 
-export default status
+
+
+
+export default status;

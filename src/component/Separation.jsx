@@ -11,6 +11,7 @@ import Question02 from './Question02';
 import Question03 from './Question03';
 import Question04 from './Question04';
 
+
 const styles = {
     slide: {
         padding: 0,
@@ -18,20 +19,20 @@ const styles = {
         color: '#fff',
     },
     slide1: {
-        backgraundColor: '#ffffff',
+        backgraundColor: '#FEA900',
     },
     slide2: {
-        backgraundColor: '#ffffff',
+        backgraundColor: '#B3DC4A',
     },
     slide3: {
-        backgraundColor: '#ffffff',
+        backgraundColor: '#6AC0FF',
     },
     slide4: {
-        backgraundColor: '#ffffff',
+        backgraundColor: '#6AC0FF',
     },
 };
 
-function Question(props) {
+function Separation(props) {
     //変数と関数の違い
     //indexは値を保存する変数
     //setIndexは値を変更するための関数
@@ -103,7 +104,6 @@ function Question(props) {
         })
     };
 
-
     console.log(data);
     return (
         <div className="mainQuesetionContent">
@@ -135,24 +135,11 @@ function Question(props) {
                     />
                 </div>
             </SwipeableViews>
-            <div className="btnBox">
-                {
-                    index === 0
-                        ? ''
-                        : <Button variant="contained" color="bule" onClick={() => { setIndex(--index) }}>
-                            前の質問に戻る
-                      </Button>
-                }
-                {
-                    index === 3
-                        ? ''
-                        : <Button variant="contained" color="secondary" onClick={() => { setIndex(++index) }}>
-                            次の質問に進む
-                    </Button>
-                }
-            </div>
-        </div >)
+            <Button variant="contained" color="secondary" onClick={() => { setIndex(++index) }}>
+                次の質問を答える
+        </Button>
+        </div>)
 }
 
 
-export default Question;
+export default Separation;

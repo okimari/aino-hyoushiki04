@@ -10,6 +10,9 @@
 
 * {
     font-family: '851Gkktt_005';
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
 }
 
 .App {
@@ -17,6 +20,7 @@
     height: 100vh;
     text-align: center;
     background-color: #F26152;
+    position: relative;
 }
 
 .App-header {
@@ -104,12 +108,88 @@
     letter-spacing: 1px;
 }
 
-.Homeimg {
+.homeTitle {
     width: 100%;
+    /* position: relative; */
     height: 100vh;
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
-    /* -webkit- transform: translateY(-50%) translateX(-50%); */
+    background-image: url(../src/images/bg01.png);
 }
+
+.border {
+    width: 95%;
+    height: 95%;
+    margin: 0 auto;
+    padding: 40px 0;
+    border: solid 5px #fff;
+    background: #F26152;
+}
+
+.wrapHomeTitle {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.border h1 {
+    font-size: 50px;
+    font-weight: 400;
+}
+
+.statusBtn {
+    width: 100%;
+    position: relative;
+    height: 100vh;
+}
+
+.statusBtn>div {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 49%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.statusBtn ul li {
+    width: 250px;
+    margin: 0 auto;
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.statusBtn ul li button {
+    width: 270px;
+    background: #1655B6;
+    padding: 13px 0;
+    border: solid 1px #fff;
+    border-radius: 25px;
+    color: #fff;
+    letter-spacing: 1.5px;
+    font-size: 14px;
+}
+
+.statusBtn ul li button:hover {
+    opacity: 0.8;
+}
+
+.demoImages {
+    width: 100%;
+    position: relative;
+    height: 100vh;
+    background-image: url(../src/images/bg01.png);
+}
+
+.wrapDemoImages {
+    width: 360px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+/* Fremare */

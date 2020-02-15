@@ -4,6 +4,9 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
+import Rodal from 'rodal';
+//rodalのCSS
+import 'rodal/lib/rodal.css';
 
 function ValueLabelComponent(props) {
     const { children, open, value } = props;
@@ -121,20 +124,6 @@ function Question04(props) {
 
     return (
         <div>
-            {/* <input type="range"
-                onChange={e => props.save({
-                    // 送り出す値をここで設定する
-                    love: e.target.value
-                })} /> */}
-
-            {/* <Button variant="contained" color="secondary" onClick={data()}>
-                Link
-            </Button> */}
-            {/* <Button variant="contained" color="secondary" onClick={(e) => props.send(props.data)}>
-                登録
-            </Button> */}
-
-
             {/* 本当はこのSliderを使用したい */}
             <Slider
                 ValueLabelComponent={ValueLabelComponent}
@@ -148,38 +137,9 @@ function Question04(props) {
                     // })
                 } />
 
-
             <Button variant="contained" color="secondary" onClick={(e) => props.send(props.data)}>
                 情報を登録
             </Button>
-
-
-            {/* <PrettoSlider
-                valueLabelDisplay="auto"
-                aria-label="pretto slider"
-                min={0}
-                max={100}
-                defaultValue={loveDate}
-                onChange={e => props.save({ */}
-            {/* // 送り出す値をここで設定する
-                //     love: e.target.value
-                // })}
-                // onChangeCommitted={(e) => */}
-            {/* //     props.save(loveDate)}
-                // KeyboardButtonProps={{ */}
-            {/* //     'aria-label': 'change max',
-                // }}
-
-            // onChangeCommitted={(event, value) => this.onChangeCommitted(event, value)}
-            // // onDragEnd={() => props.save({ LoveDate: true })}
-
-            // value={this.state.sliderValue}
-            // min={0}
-            // max={100}
-            // step={1}
-            // onChange={(event, value) => this.onChange(event, value)}
-            // onDragEnd={() => this.setState({ fetchDataEnabled: true })}
-            /> */}
 
         </div>
     );

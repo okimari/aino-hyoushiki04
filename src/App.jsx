@@ -1,20 +1,34 @@
 import React, { useState, Component } from 'react';
-import logo from './images/logo.png';
-import img from './images/img.png';
+import demo1 from './images/demo1.png';
+import demo2 from './images/demo2.png';
+import demo3 from './images/demo3.png';
+import demo4 from './images/demo4.png';
 import SwipeableViews from 'react-swipeable-views';
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.css';
-//import Button from '@material-ui/core/Button';
 import firebase from './config/firebase';
 import { render } from '@testing-library/react';
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-//import firebase from './config/firebase';
 import './App.css';
 import Question from './component/Question';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Start from './component/Start';
 import Calculation from './component/Calculation';
 import Estimate from './component/Estimate';
+import ReactDOM from 'react-dom';
+import Separation from './component/Separation';
+// import { render } from "react-dom";
+import { Frame } from "framer";
+import {
+  BrowserRouter as Router,
+  // Route,
+  Switch,
+  // useParams,
+  useHistory,
+  // useLocation,
+} from 'react-router-dom';
+
+
 
 // SwiperのStyle
 const styles = {
@@ -65,32 +79,19 @@ const SwiperBox = () => {
   };
   return (
     <Swiper{...params}>
-      <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
-      <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
-      <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
-      <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
-      <div style={{ background: "#F26152", textAlign: "center" }}><img src={img} className="img" alt="img" /></div>
+      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}><img src={demo1} className="img" alt="デモ01" /></div>
+      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}><img src={demo2} className="img" alt="デモ02" /></div>
+      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}><img src={demo3} className="img" alt="デモ03" /></div>
+      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}><img src={demo4} className="img" alt="デモ04" /></div>
     </Swiper >
   )
 }
 
-// Authの設定
-// firebase.initializeApp({
-//   apiKey: "AIzaSyCsNOCJkAK7d2VVwRCSnyFZrpyfN5W5q4Q",
-//   authDomain: "aino-hyoushiki.firebaseapp.com",
-//   databaseURL: "https://aino-hyoushiki.firebaseio.com",
-//   projectId: "aino-hyoushiki",
-//   storageBucket: "aino-hyoushiki.appspot.com",
-//   messagingSenderId: "1047087563521",
-//   appId: "1:1047087563521:web:272817f02ea6e934541100"
-// })
-
 class Auth extends Component {
   state = {
-    //isSingnedIn: false
+    // isSingnedIn: false,
     loading: true,
     user: null,
-
   }
   uiConfig = {
     signInFlow: 'popup',
@@ -100,36 +101,22 @@ class Auth extends Component {
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.TwitterAuthProvider.PROVIDER_ID,
       firebase.auth.GithubAuthProvider.PROVIDER_ID,
-      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-      // firebase.auth.AnonymousAuthProvider.PROVIDER_ID
     ],
     callbacks: {
       signInSuccess: () => false
     }
   }
 
-
-
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(user => {
       this.setState({ user: user })
       this.setState({ isSignedIn: !!user })
-      // var uid = user.uid;
       console.log("user", user)
-      //console.log("user", uid)
-      //console.log("username", name);
-      // firebase.firestore().collection('AuthDb').doc(`${user.uid}`)
-      //   .set({
-      //     uid: user.uid,
-      //     name: 'string'
-      //   })
     })
   }
 
   // 追加
   render() {
-    //if (this.state.loading) return <div>loading</div>;
     return (
       <div className="Login" style={{ paddingTop: '120px' }}>
         <h1>ログイン</h1>
@@ -137,8 +124,9 @@ class Auth extends Component {
         {this.state.isSignedIn ? (
           <span>
             <div>Signed In!</div>
+            <h1>Welcome</h1><br />
+            <h2>{firebase.auth().currentUser.displayName}</h2><br />
             <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
-            <h1>Welcome {firebase.auth().currentUser.displayName}</h1><br />
             {/* Username: {this.state.user && this.state.user.displayName}<br /> */}
             <div className="Profile_img">
               <img
@@ -175,6 +163,29 @@ const firstMessage = () => {
   );
 }
 
+//質問形式のボタンの部分
+
+const Status = () => {
+  const history = useHistory();
+  return (
+    <div className="statusBtn">
+      <div>
+        <h3>彼とのステータスを選択してね</h3>
+        <p>質問内容が異なるよ</p>
+        <ul>
+          <li>
+            <button onClick={() => history.push('/status01')}>同居のかたはこちら</button>
+          </li>
+          <li>
+            <button onClick={() => history.push('/status02')}>別居のかたはこちら</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+
 function App() {
   //page遷移の定義をする
   let [index, setIndex] = useState(0);
@@ -184,23 +195,42 @@ function App() {
     setUser(user);
   })
 
-  render()
+
+
   //const isSignedIn = this.state.isSignedIn;
   return (
     <div className="App">
 
       <SwipeableViews enableMouseEvents onChangeIndex={index => { setIndex(index) }} index={index}>
-
         <div style={Object.assign({}, styles.slide, styles.slide1)}>
-          <div className="Homeimg">
-            {/* <img src={logo} className="App-logo" alt="logo" style={{ width: '40%' }} /> */}
-            <h1 style={{ fontSize: '100px', fontWeight: '300', position: 'absolute', top: '50%', left: '50%', transform: 'translateY(-50%) translateX(-50%)' }}>愛の標識</h1>
+          <div className="homeTitle">
+            <div className="wrapHomeTitle">
+              <div className="border">
+                <h1 style={{ fontSize: '50px' }}>愛の標識</h1>
+              </div>
+            </div>
           </div>
+          {/* <div className="homeTitle">
+            <div className="wrapHomeTitle">
+              <h1></h1>
+              <Frame
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1 }}
+                size={400}
+              // background={"#fff"}
+              // radius={30}
+              />
+            </div>
+          </div> */}
         </div>
 
         <div className="slide_view" id="slideSecond" style={Object.assign({}, styles.slide, styles.slide2)}>
-          <p>アプリの使用方法だっちゃ</p>
-          <SwiperBox />
+          <div className="demoImages">
+            <div className="wrapDemoImages">
+              <p style={{ fontSize: '28px', marginBottom: '20px' }}>使用方法です</p>
+              <SwiperBox />
+            </div>
+          </div>
         </div>
 
         {/* ログイン画面 */}
@@ -211,24 +241,43 @@ function App() {
           <Auth />
         </div>
 
+        {/* 質問形式変更画面/同棲/別居 */}
+        <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide3)}>
+          <div>
+            <Router>
+              <Switch>
+                <Route path="/" exact>
+                  <Status />
+                </Route>
+                <Route path="/status01" exact>
+                  <Question user={user} />
+                </Route>
+                <Route path="/status02" exact>
+                  <Separation user={user} />
+                </Route>
+              </Switch>
+            </Router>
+          </div>
+        </div>
+
         {/* 質問画面 */}
-        <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide4)}>
+        {/* <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide4)}>
           <div>
             <firstMessage />
           </div>
           <div className="moveBtn">
-            <Question user={user} />
-            {/* <BrowserRouter> */}
-            {/* ここにルーターの部分を入れる */}
-            {/* <div className="StartBtn">
+            <Question user={user} /> */}
+        {/* <BrowserRouter> */}
+        {/* ここにルーターの部分を入れる */}
+        {/* <div className="StartBtn">
 
               </div>
               <div>
                 <Route path='/Question' component={Question} />
               </div>
             </BrowserRouter> */}
-          </div>
-        </div>
+        {/* </div>
+        </div> */}
 
         {/* 一覧画面 */}
         <div id="fourth" style={Object.assign({}, styles.slide, styles.slide5)}>
