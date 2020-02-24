@@ -79,10 +79,10 @@ const SwiperBox = () => {
   };
   return (
     <Swiper{...params}>
-      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}><img src={demo1} className="img" alt="デモ01" /></div>
-      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}><img src={demo2} className="img" alt="デモ02" /></div>
-      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}><img src={demo3} className="img" alt="デモ03" /></div>
-      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}><img src={demo4} className="img" alt="デモ04" /></div>
+      <div><img src={demo1} className="img" alt="デモ01" /></div>
+      <div><img src={demo2} className="img" alt="デモ02" /></div>
+      <div><img src={demo3} className="img" alt="デモ03" /></div>
+      <div><img src={demo4} className="img" alt="デモ04" /></div>
     </Swiper >
   )
 }
@@ -119,33 +119,36 @@ class Auth extends Component {
   render() {
     return (
       <div className="Login" style={{ paddingTop: '120px' }}>
-        <h1>ログイン</h1>
-        <p>下の４つのどれかでログインしてね</p>
-        {this.state.isSignedIn ? (
-          <span>
-            <div>Signed In!</div>
-            <h1>Welcome</h1><br />
-            <h2>{firebase.auth().currentUser.displayName}</h2><br />
-            <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
-            {/* Username: {this.state.user && this.state.user.displayName}<br /> */}
-            <div className="Profile_img">
-              <img
-                alt="proaqqawqfile picture"
-                src={firebase.auth().currentUser.photoURL}
-                style={{
-                  width: '130px',
-                  height: '130px',
-                  borderRadius: '50%'
-                }}
+        <div className="wrapBox" style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}>
+          <h1 style={{ fontSize: '70px', fontWeight: '400', paddingBottom: '20px' }}>愛の標識</h1>
+          <p style={{ fontSize: '30px', paddingBottom: '10px' }}>LOGIN</p>
+          <p>ログインしてね</p>
+          {this.state.isSignedIn ? (
+            <span>
+              <div>Signed In!</div>
+              <h1>Welcome</h1><br />
+              <h2>{firebase.auth().currentUser.displayName}</h2><br />
+              <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
+              Username: {this.state.user && this.state.user.displayName}<br />
+              <div className="Profile_img">
+                <img
+                  alt="proaqqawqfile picture"
+                  src={firebase.auth().currentUser.photoURL}
+                  style={{
+                    width: '130px',
+                    height: '130px',
+                    borderRadius: '50%'
+                  }}
+                />
+              </div>
+            </span>
+          ) : (
+              <StyledFirebaseAuth
+                uiConfig={this.uiConfig}
+                firebaseAuth={firebase.auth()}
               />
-            </div>
-          </span>
-        ) : (
-            <StyledFirebaseAuth
-              uiConfig={this.uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
-          )}
+            )}
+        </div>
       </div>
     )
   }
@@ -169,9 +172,9 @@ const Status = () => {
   const history = useHistory();
   return (
     <div className="statusBtn">
-      <div>
-        <h3>彼とのステータスを選択してね</h3>
-        <p>質問内容が異なるよ</p>
+      <div style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}>
+        <h3 style={{ fontSize: '22px', paddingBottom: '20px', fontSize: '25px', lineHeight: '1.4' }}>恋人との<br />ステータスを選択してね</h3>
+        <p style={{ fontSize: '20px', paddingBottom: '50px' }}>質問内容が異なるよ</p>
         <ul>
           <li>
             <button onClick={() => history.push('/status01')}>同居のかたはこちら</button>
@@ -181,7 +184,7 @@ const Status = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </div >
   )
 }
 
@@ -206,27 +209,15 @@ function App() {
           <div className="homeTitle">
             <div className="wrapHomeTitle">
               <div className="border">
-                <h1 style={{ fontSize: '50px' }}>愛の標識</h1>
+                <h1 style={{ fontSize: '70px' }}>愛の標識</h1>
               </div>
             </div>
           </div>
-          {/* <div className="homeTitle">
-            <div className="wrapHomeTitle">
-              <h1></h1>
-              <Frame
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1 }}
-                size={400}
-              // background={"#fff"}
-              // radius={30}
-              />
-            </div>
-          </div> */}
         </div>
 
         <div className="slide_view" id="slideSecond" style={Object.assign({}, styles.slide, styles.slide2)}>
           <div className="demoImages">
-            <div className="wrapDemoImages">
+            <div className="wrapDemoImages" style={{ background: "#F26152", textAlign: "center", padding: '70px 10px', borderRadius: '10px', border: 'solid 5px #fff' }}>
               <p style={{ fontSize: '28px', marginBottom: '20px' }}>使用方法です</p>
               <SwiperBox />
             </div>
@@ -243,49 +234,33 @@ function App() {
 
         {/* 質問形式変更画面/同棲/別居 */}
         <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide3)}>
-          <div>
-            <Router>
-              <Switch>
-                <Route path="/" exact>
-                  <Status />
-                </Route>
-                <Route path="/status01" exact>
-                  <Question user={user} />
-                </Route>
-                <Route path="/status02" exact>
-                  <Separation user={user} />
-                </Route>
-              </Switch>
-            </Router>
+          <div className="Questionrout">
+            <div className="wrapQuestionrout">
+              <div>
+                <Router>
+                  <Switch>
+                    <Route path="/" exact>
+                      <Status />
+                    </Route>
+                    <Route path="/status01" exact>
+                      <Question user={user} />
+                    </Route>
+                    <Route path="/status02" exact>
+                      <Separation user={user} />
+                    </Route>
+                  </Switch>
+                </Router>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* 質問画面 */}
-        {/* <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide4)}>
-          <div>
-            <firstMessage />
-          </div>
-          <div className="moveBtn">
-            <Question user={user} /> */}
-        {/* <BrowserRouter> */}
-        {/* ここにルーターの部分を入れる */}
-        {/* <div className="StartBtn">
-
-              </div>
-              <div>
-                <Route path='/Question' component={Question} />
-              </div>
-            </BrowserRouter> */}
-        {/* </div>
-        </div> */}
-
         {/* 一覧画面 */}
         <div id="fourth" style={Object.assign({}, styles.slide, styles.slide5)}>
-          <p>お見積りを作成する</p>
           <BrowserRouter>
             {/* ここにルーターの部分を入れる */}
             <div className="StartBtn">
-              <p><Calculation /></p>
+              {/* <p><Calculation /></p> */}
             </div>
             <div>
               <Route path='/Estimate' component={Estimate} />

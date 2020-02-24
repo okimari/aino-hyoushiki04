@@ -24,7 +24,7 @@ function Question01(props) {
                     <KeyboardDatePicker
                         margin="normal"
                         id="date-picker-dialog"
-                        label="Date picker dialog"
+                        label="記念日"
                         format="MM/dd/yyyy"
                         value={selectedDate}
                         onChange={handleDateChange}

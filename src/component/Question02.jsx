@@ -14,14 +14,12 @@ const useStyles = makeStyles(theme => ({
 
 function Question02(props) {
     console.log(props);
-    // const [selectpresents, setselectpresents] = React.useState(new Date('プレゼント内容'));
-    // const [selectmoneys, setselectmoneys] = React.useState(new Date('金額だよ'));
-
     const [data2, setData2] = React.useState({ presents: '', moneys: 0 });
     //const numbers = props.numbers;
     return (
         <form>
             {/* <p>{JSON.stringify(this.state)}</p> */}
+            <p style={{ textAlign: 'left', marginBottom: '10px', }}>★プレゼントしたもの</p>
             <TextField
                 id="outlined-basic"
                 label="プレゼントしたもの"
@@ -35,6 +33,7 @@ function Question02(props) {
                 }}
                 style={{ background: '#fff', borderRadius: '5px', border: 'solid,#1655B6,1px', marginBottom: '20px', width: '100%' }}
             />
+            <p style={{ textAlign: 'left', marginBottom: '10px', }}>★金額を入力してね</p>
             <TextField
                 id="outlined-basic2"
                 label="金額を入力"

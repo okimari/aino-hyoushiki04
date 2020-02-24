@@ -131,10 +131,6 @@ function Question04(props) {
                 defaultValue={20}
                 onChange={(e, v) =>
                     console.log(v)
-                    //props.save({
-                    //     // 送り出す値をここで設定する
-                    //     love: v
-                    // })
                 } />
 
             <Button variant="contained" color="secondary" onClick={(e) => props.send(props.data)}>

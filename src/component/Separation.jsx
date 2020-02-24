@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Button from '@material-ui/core/Button';
 import firebase from '../config/firebase';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Question00 from './Question00';
 import Question01 from './Question01';
 import Question02 from './Question02';
 import Question03 from './Question03';
@@ -48,35 +49,44 @@ function Separation(props) {
 
     //let [currentUser, setCurrentUser] = useState(null);
     let [data, setData] = useState([
+        { toName: '' },
         { data: firebase.firestore.Timestamp },
         { presents: '', moneys: 0 },
         { rent: '', money: 0 },
         { user: '', love: 0 }
     ])
 
-    const handleChangeDate = date => {
-        data[0] = date
-        setData([...data]);
-    };
+
     // 配列で取得するためにdataの中の[1]番目を指定する
     // data[1]の中のpresentsの部分を変更する
     // ...dataでuseStateに入っている値を全部取得する
+    const handleChangeName = toName => {
+        console.log(data[0])
+        data[0] = toName
+        setData([...data]);
+    };
+
+    const handleChangeDate = date => {
+        data[1] = date
+        setData([...data]);
+    };
+
     const handleChangePresents = presents => {
-        console.log(data[1])
-        data[1] = { ...data[1], ...presents }
+        console.log(data[2])
+        data[2] = { ...data[2], ...presents }
         setData([...data]);
     };
 
     const handleChangeRent = rent => {
-        console.log(data[2])
-        data[2] = { ...data[2], ...rent }
+        console.log(data[3])
+        data[3] = { ...data[3], ...rent }
         setData([...data]);
     };
 
     const handleDateLove = love => {
         //uid = user.uid;
-        console.log(data[3])
-        data[3] = { ...data[3], ...love }
+        console.log(data[4])
+        data[4] = { ...data[4], ...love }
         setData([...data]);
     };
 
@@ -85,16 +95,18 @@ function Separation(props) {
         firebase.firestore().collection('anniversaryData').add({
             uid: props.user.uid,
             // uid: 'aaaaa',
-            date: data[0],
-            present: data[1],
-            moneys: data[2],
-            rent: data[3],
+            toName: data[0],
+            date: data[1],
+            present: data[2],
+            moneys: data[3],
+            rent: data[4],
             today: new Date(),
             //today:firebase.firestore.FieldValue.serverTimestamp()
             //today: Timestamp.toDate(),
             //user: uid,
         }).then(() => {
             setData({
+                toname: '',
                 anniversary: firebase.firestore.Timestamp,
                 present: { presents: '', moneys: 0 },
                 life: { rent: '', money: 0 },
@@ -111,33 +123,66 @@ function Separation(props) {
             <SwipeableViews enableMouseEvents onChangeIndex={index => { setIndex(index) }} index={index}>
                 <div style={Object.assign({}, styles.slide, styles.slide1)} className="questionContent">
                     <div className="wrap_box">
-                        <p>Questions01</p>
+                        <p style={{ color: '#fff', fontSize: '20px', padding: '10px 0', border: 'solid 1px #fff', marginBottom: '20px', background: '#FA503F', borderRadius: '2px' }}>診断01</p>
+                        <p style={{ fontSize: '25px', lineHeight: '1.1', paddingBottom: '20px' }}>送りたい相手の<br />名前を入力してね</p>
+                        <Question00 save={(e) => handleChangeName(e)} />
+                    </div>
+                </div>
+                <div style={Object.assign({}, styles.slide, styles.slide1)} className="questionContent">
+                    <div className="wrap_box">
+                        <p style={{ color: '#fff', fontSize: '20px', padding: '10px 0', border: 'solid 1px #fff', marginBottom: '20px', background: '#FA503F', borderRadius: '2px' }}>診断02</p>
+                        <p style={{ fontSize: '25px', lineHeight: '1.1', paddingBottom: '20px' }}>付き合った<br />記念日を入力してね</p>
                         <Question01 save={(e) => handleChangeDate(e)} />
                     </div>
                 </div>
                 <div id="slideSecond" style={Object.assign({}, styles.slide, styles.slide2)} className="questionContent">
-                    <p>Questions02</p>
-                    <p>プレゼントしたものを入力</p>
-                    <Question02 save={(e) => handleChangePresents(e)} />
+                    <div className="wrap_box">
+                        <p style={{ color: '#fff', fontSize: '20px', padding: '10px 0', border: 'solid 1px #fff', marginBottom: '20px', background: '#FA503F', borderRadius: '2px' }}>診断03</p>
+                        <p style={{ fontSize: '25px', lineHeight: '1.1', paddingBottom: '20px' }}>プレゼントしたものを入力</p>
+                        <Question02 save={(e) => handleChangePresents(e)} />
+                    </div>
                 </div>
                 <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide3)} className="questionContent">
-                    <p>Questions03</p>
-                    <p>家の支払いの金額を入力</p>
-                    <Question03 save={(e) => handleChangeRent(e)} />
+                    <div className="wrap_box">
+                        <p style={{ color: '#fff', fontSize: '20px', padding: '10px 0', border: 'solid 1px #fff', marginBottom: '20px', background: '#FA503F', borderRadius: '2px' }}>診断04</p>
+                        <p style={{ fontSize: '25px', lineHeight: '1.1', paddingBottom: '20px' }}>家の支払いの金額を入力</p>
+                        <Question03 save={(e) => handleChangeRent(e)} />
+                    </div>
                 </div>
                 <div id="slideThird" style={Object.assign({}, styles.slide, styles.slide4)} className="questionContent">
-                    <p>Questions04</p>
-                    <p>愛してた度を入れてね</p>
-                    <Question04
-                        data={data}
-                        save={(e, v) => handleDateLove(v)}
-                        send={(e) => handleDateFirebase(e)}
-                    />
+                    <div className="wrap_box">
+                        <p style={{ color: '#fff', fontSize: '20px', padding: '10px 0', border: 'solid 1px #fff', marginBottom: '20px', background: '#FA503F', borderRadius: '2px' }}>診断05</p>
+                        <p style={{ fontSize: '25px', lineHeight: '1.1', paddingBottom: '20px' }}>愛してた度を入れてね</p>
+                        <Question04
+                            data={data}
+                            save={(e, v) => handleDateLove(v)}
+                            send={(e) => handleDateFirebase(e)}
+                        />
+                    </div>
                 </div>
             </SwipeableViews>
-            <Button variant="contained" color="secondary" onClick={() => { setIndex(++index) }}>
-                次の質問を答える
-        </Button>
+            <div className="btnBox">
+                <ul>
+                    <li>
+                        {
+                            index === 0
+                                ? ''
+                                : <Button variant="contained" color="bule" onClick={() => { setIndex(--index) }}>
+                                    前の質問に戻る
+                      </Button>
+                        }
+                    </li>
+                    <li>
+                        {
+                            index === 4
+                                ? ''
+                                : <Button variant="contained" color="secondary" onClick={() => { setIndex(++index) }}>
+                                    次の質問に進む
+                    </Button>
+                        }
+                    </li>
+                </ul>
+            </div>
         </div>)
 }
 
